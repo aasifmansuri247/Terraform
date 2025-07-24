@@ -1,7 +1,7 @@
 name: Destroy EC2
 
 on:
-  workflows:
+  workflow_dispatch:
 
 jobs: 
   nginx-setup-https:
