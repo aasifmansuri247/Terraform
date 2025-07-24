@@ -1,0 +1,41 @@
+name: Automation Nginx Reverse Proxy with HTTPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs: 
+  nginx-setup-https:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repositories
+        uses: actions/checkout@v3
+      
+      - name: set up terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: terraform initialize
+        run: terraform init
+
+      - name: terraform plan
+        run: terraform plan
+
+      - name: terraform apply
+        run: terraform apply -auto-approve
+
+      - name: Terraform Output - Get Public IP
+        id: get_ip
+        run: |
+          PUBLIC_IP=$(terraform output -raw instance_ip)
+          echo "EC2 Public IP: $PUBLIC_IP"
+
+  
