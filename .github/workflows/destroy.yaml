@@ -1,4 +1,4 @@
-name: Destroy
+name: Destroy EC2
 
 on:
   workflows:
