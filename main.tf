@@ -7,11 +7,11 @@ data "template_file" "user_data" {
 }
 
 resource "aws_instance" "terra_server" {
-  ami                         = "ami-020cba7c55df1f615"
-  instance_type               = "t2.micro"
+  ami                         = var.ami
+  instance_type               = var.instance_type
   vpc_security_group_ids      = [aws_security_group.allow_ssh_nginx.id]
-  availability_zone           = "us-east-1a"
-  subnet_id                   = "subnet-0310b7d86993a61af"
+  availability_zone           = var.availability_zone
+  subnet_id                   = var.subnet_id
   associate_public_ip_address = true
 
   user_data = data.template_file.user_data.rendered
