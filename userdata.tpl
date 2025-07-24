@@ -2,7 +2,7 @@
 sudo apt update -y
 sudo apt install nginx -y
 sudo apt install -y docker.io
-sudo docker run -d -p 5000:5000 techmypassion/python-app:latest
+sudo docker run -d -p 5000:5000 techmypassion/flask-app:v2
 cat > /etc/nginx/sites-available/default <<EOL
 server {
     listen 80;
